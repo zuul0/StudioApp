@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EbApp.Registration">
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#FFEBEBF3" Offset="0" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="#FF797878"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="#FF797878"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="Margin" Value="0, 5"/>
+            <Setter Property="Background" Value="#FFEAEAEA"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+
+            <!-- Элементы для ввода номера телефона -->
+            <Label Text="Введите почту:" />
+            <Entry x:Name="EmailEntry" Placeholder="email" />
+            <Button Text="Отправить код"  Clicked="SendEmailButton_Clicked" 
+                    />
+
+            <!-- Поле для ввода кода подтверждения -->
+            <StackLayout x:Name="CodeEntryLayout" IsVisible="False" Margin="0,20,0,0">
+                <Label Text="Введите код подтверждения, отправленный на ваш номер:" />
+                <Entry x:Name="CodeEntry" Placeholder="Код подтверждения"  Keyboard="Numeric" />
+                <Button Text="Проверить код" Clicked="VerifyCodeButton_Clicked" />
+            </StackLayout>
+
+            <!-- Поля для ввода дополнительной информации -->
+            <StackLayout x:Name="AdditionalInfoLayout" IsVisible="False" Margin="0,20,0,0">
+                <Label Text="Введите дополнительную информацию:" />
+                <Entry Placeholder="Имя" />
+                <Entry Placeholder="Фамилия" />
+              
+            </StackLayout>
+            <StackLayout Margin="20">
+                <!-- Display client's information here -->
+                <Label Text="{Binding Surname}" />
+                <Label Text="{Binding Lastname}" />
+                <Label Text="{Binding Patronymic}" />
+                <Label Text="{Binding Email}" />
+            </StackLayout>
+            <Button Text="Завершить регистрацию" Clicked="ButtonNext_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+
+  
+</ContentPage>
