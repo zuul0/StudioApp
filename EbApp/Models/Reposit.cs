@@ -31,11 +31,16 @@ namespace EbApp.Models
 
         { database.Update(updatedClient); }
 
-
+        public Client GetClientByEmail(string email)
+        {
+            return database.Table<Client>().FirstOrDefault(c => c.Email == email);
+        }
         public  Client GetClientById(int clientId)
         {
             return database.Table<Client>().FirstOrDefault(c => c.IdClient == clientId);
         }
+
+
         //Метод для получения списка занятий, на которые записан клиент
         public List<Appointment> GetAppointmentsForClient(int clientId)
         {
@@ -81,7 +86,10 @@ namespace EbApp.Models
             AddTrainer(trainer2);
         }
 
-       
+        //private byte[] GetPhotoBytes(string filename)
+        //{
+        //    return File.ReadAllBytes(filename);
+        //}
 
         public IEnumerable<Trainer> GetTrainers()
         {

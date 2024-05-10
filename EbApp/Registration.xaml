@@ -47,8 +47,8 @@
             <!-- Поля для ввода дополнительной информации -->
             <StackLayout x:Name="AdditionalInfoLayout" IsVisible="False" Margin="0,20,0,0">
                 <Label Text="Введите дополнительную информацию:" />
-                <Entry Placeholder="Имя" />
-                <Entry Placeholder="Фамилия" />
+                <Entry x:Name="FirstNameEntry" Placeholder="Имя" />
+                <Entry x:Name="LastNameEntry" Placeholder="Фамилия" />
               
             </StackLayout>
             <StackLayout Margin="20">
@@ -57,6 +57,9 @@
                 <Label Text="{Binding Lastname}" />
                 <Label Text="{Binding Patronymic}" />
                 <Label Text="{Binding Email}" />
+                <Button Text="Сохранить" Clicked="SaveClientButton_Clicked" />
+
+
             </StackLayout>
             <Button Text="Завершить регистрацию" Clicked="ButtonNext_Clicked"/>
         </StackLayout>

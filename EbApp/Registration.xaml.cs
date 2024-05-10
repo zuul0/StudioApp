@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EbApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
@@ -24,6 +25,28 @@ namespace EbApp
         {
             return System.Text.RegularExpressions.Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         }
+
+        private void SaveClientButton_Clicked(object sender, EventArgs e)
+        {
+            string firstName = FirstNameEntry.Text;
+            string lastName = LastNameEntry.Text;
+            string email = EmailEntry.Text;
+
+            // Создание нового клиента или обновление существующего
+            Client client = new Client
+            {
+                Surname = lastName,
+                Lastname = firstName,
+                Email = email
+            };
+
+            // Сохранение клиента в базе данных
+            App.Database.AddClient(client);
+
+            // Отображение информации о клиенте
+            BindingContext = client;
+        }
+
 
         private async void SendEmailButton_Clicked(object sender, EventArgs e)
         {
