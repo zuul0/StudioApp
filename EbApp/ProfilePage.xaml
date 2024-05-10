@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EbApp.ProfilePage">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <!-- Блок для отображения данных профиля -->
+            <StackLayout x:Name="ProfileLayout" IsVisible="False">
+                <Label Text="Профиль клиента:" />
+                <Label x:Name="NameLabel" />
+                <Label x:Name="LastNameLabel" />
+                <Label x:Name="EmailLabel" />
+            </StackLayout>
+
+            <!-- Блок для ввода дополнительной информации -->
+            <StackLayout x:Name="AdditionalInfoLayout" IsVisible="False">
+                <Label Text="Введите дополнительную информацию:" />
+                <Entry x:Name="NameEntry" Placeholder="Имя" />
+                <Entry x:Name="LastNameEntry" Placeholder="Фамилия" />
+                <Entry x:Name="EmailEntry" Placeholder="Email" />
+                <Button Text="Сохранить" Clicked="UpdateClientProfile" />
+            </StackLayout>
+
+            <!-- Кнопка для перехода на страницу авторизации -->
+          
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:EbApp"
+       Title="Studio"
+       x:Class="EbApp.AppShell">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="baseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="LightPink" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="#F44E6C" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="LightPink" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#F44E6C"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="#F44E6C"/>
+                
+            </Style>
+
+            <Style TargetType="TabBar" BasedOn="{StaticResource baseStyle}">
+
+            </Style>
+
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource baseStyle}" />
+                       
+        </ResourceDictionary>
+    </Shell.Resources>
+
+
+
+    <TabBar>
+        <ShellContent Title="Main" ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent Title="Тренеры" ContentTemplate="{DataTemplate local:TrainersList}" />
+        <ShellContent Title="Расписание"  ContentTemplate="{DataTemplate local:Schedule}" />
+        <ShellContent Title="Профиль" ContentTemplate="{DataTemplate local:ProfilePage}" />
+    </TabBar>
+
+
+</Shell>

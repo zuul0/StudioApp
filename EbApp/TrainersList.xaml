@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EbApp.TrainersList">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="C1">#FFFFFF</Color>
+            <Color x:Key="C2">#000000</Color>
+            <DataTemplate x:Key="cellTemplate">
+                <Grid BackgroundColor="White">
+                    <Label Text="{Binding Text}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+           
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+
+
+            <ListView x:Name="trainersListView" ItemSelected="trainersListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <StackLayout Orientation="Horizontal" WidthRequest="300" HeightRequest="200">
+                                <Image Source="{Binding Photo}" WidthRequest="100" HeightRequest="200" />
+                                <StackLayout>
+                                    <Label Text="{Binding LastName}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Direction}" />
+                                    <Label Text="{Binding MiddleName}" />
+                                 
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

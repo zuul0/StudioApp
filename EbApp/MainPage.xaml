@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EbApp.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <CarouselView BackgroundColor="Aquamarine" ItemsSource="{Binding CarouselItems}" 
+               HorizontalOptions="FillAndExpand" 
+               VerticalOptions="Start"
+               HeightRequest="220">
+     
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill" HeightRequest="220"/>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+
+        <!-- Кнопки расписания и звонка/написания -->
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Расписание" Clicked="ScheduleButton_Clicked"/>
+            <Button Text="Звонок/Написать" Clicked="ContactButton_Clicked"/>
+        </StackLayout>
+
+        <!-- Надпись "Ближайшие занятия" и ссылка на все тренировки -->
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Ближайшие занятия:" VerticalOptions="Center"/>
+            <Label Text="Все тренировки" VerticalOptions="Center" TextColor="Blue" />
+        </StackLayout>
+
+        <StackLayout>
+            <ListView x:Name="LessonListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Margin="5" Padding="5" BackgroundColor="LightGray">
+                                <StackLayout>
+                                    <Label Text="{Binding Direction}" />
+                                    <Label Text="{Binding Trainer}" />
+                                    <Label Text="{Binding Type}" />
+                                    <Label Text="{Binding Time}" />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
