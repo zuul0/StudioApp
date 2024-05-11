@@ -82,7 +82,7 @@ namespace EbApp
                     App.database.AddClient(client);
                 }
                 Application.Current.Properties["currentUser"] = JsonConvert.SerializeObject(client);
-                await Navigation.PopAsync();
+                Navigation.PushAsync(new ProfilePage());
             }
             else
             {

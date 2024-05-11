@@ -2,12 +2,36 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EbApp.MainPage">
+ 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="C1">#FFFFFF</Color>
+            <Color x:Key="C2">#000000</Color>
+            <DataTemplate x:Key="cellTemplate">
+                <Grid BackgroundColor="White">
+                    <Label Text="{Binding Text}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
-
     <StackLayout>
         <CarouselView BackgroundColor="Aquamarine" ItemsSource="{Binding CarouselItems}" 
                HorizontalOptions="FillAndExpand" 

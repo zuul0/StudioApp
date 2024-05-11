@@ -16,6 +16,7 @@ namespace EbApp
         {
             DisplayAlert("Неправильный email", "Произошла ошибка", "OK");
             InitializeComponent();
+
         }
       
         protected override void OnAppearing()

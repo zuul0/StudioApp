@@ -19,6 +19,71 @@ namespace EbApp.Models
             AddDefaultTrainers();
         }
 
+        // Добавление метода AddAppointment для добавления занятия в базу данных
+        public void AddAppointment(Appointment appointment)
+        {
+            database.Insert(appointment);
+        }
+        //Тренеры
+        private void AddDefaultTrainers()
+        {
+            var trainer1 = new Trainer
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                MiddleName = "Smith",
+                PhoneNumber = "1234567890",
+                Direction = "Fitness",
+                Photo = null
+            };
+
+            var trainer2 = new Trainer
+            {
+                FirstName = "Jane",
+                LastName = "Doe",
+                MiddleName = "Johnson",
+                PhoneNumber = "0987654321",
+                Direction = "Yoga",
+                Photo = null
+            };
+
+            AddTrainer(trainer1);
+            AddTrainer(trainer2);
+        }
+        public IEnumerable<Trainer> GetTrainers()
+        {
+            return database.Table<Trainer>().ToList();
+        }
+
+        public Trainer GetTrainer(int id)
+        {
+            return database.Get<Trainer>(id);
+        }
+
+
+        //Расписание
+        public IEnumerable<Appointment> GetAppointments()
+        {
+            return database.Table<Appointment>().ToList();
+        }
+
+        public Appointment GetAppointment(int id)
+        {
+            return database.Get<Appointment>(id);
+        }
+        public int SaveAppointment(Appointment appointment)
+        {
+            if (appointment.Id != 0)
+            {
+                database.Update(appointment);
+                return appointment.Id;
+            }
+            else
+            {
+                return database.Insert(appointment);
+            }
+        }
+
         // Клиенты
         public void AddClient(Client newClient)
         {
@@ -55,42 +120,6 @@ namespace EbApp.Models
 
 
 
-
-        //Тренеры
-        private void AddDefaultTrainers()
-        {
-            var trainer1 = new Trainer
-            {
-                FirstName = "John",
-                LastName = "Doe",
-                MiddleName = "Smith",
-                PhoneNumber = "1234567890",
-                Direction = "Fitness",
-                Photo = null
-            };
-
-            var trainer2 = new Trainer
-            {
-                FirstName = "Jane",
-                LastName = "Doe",
-                MiddleName = "Johnson",
-                PhoneNumber = "0987654321",
-                Direction = "Yoga",
-                Photo = null
-            };
-
-            AddTrainer(trainer1);
-            AddTrainer(trainer2);
-        }
-        public IEnumerable<Trainer> GetTrainers()
-        {
-            return database.Table<Trainer>().ToList();
-        }
-
-        public Trainer GetTrainer(int id)
-        {
-            return database.Get<Trainer>(id);
-        }
 
         public List<string> GetAllDirections()
         {
@@ -153,28 +182,6 @@ namespace EbApp.Models
 
 
 
-        //Расписание
-        public IEnumerable<Appointment> GetAppointments()
-        {
-            return database.Table<Appointment>().ToList();
-        }
-
-        public Appointment GetAppointment(int id)
-        {
-            return database.Get<Appointment>(id);
-        }
-        public int SaveAppointment(Appointment Client)
-        {
-            if (Client.Id != 0)
-            {
-                database.Update(Client);
-                return Client.Id;
-            }
-            else
-            {
-                return database.Insert(Client);
-            }
-        }
 
 
 

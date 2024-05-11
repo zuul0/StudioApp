@@ -2,11 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EbApp.Schedule">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <Color x:Key="C1">#FFFFFF</Color>
+            <Color x:Key="C2">#000000</Color>
+            <DataTemplate x:Key="ViewCell">
+                <Grid BackgroundColor="Beige">
+                    <Label Text="{Binding Text}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#FF797878"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content > 
+        <StackLayout BackgroundColor="PeachPuff"  Padding="10">
+            <Label Text="Расписание занятий" FontSize="20" HorizontalOptions="Center" Margin="0,10,0,20" />
+            <ListView x:Name="appointmentListView" ItemSelected="appointmentListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding DateClass, StringFormat='Дата: {0:dd.MM.yyyy}'}" TextColor="Black" />
+                                <Label Text="{Binding TimeClass, StringFormat='Время: {0:hh\\:mm}'}" TextColor="Black" />
+                                <Label Text="{Binding NumOfSeats, StringFormat='Количество мест: {0}'}" TextColor="Black" />
+                                <Label Text="{Binding TrainerId, StringFormat='Направление: {0}'}" TextColor="Black" />
+                                                               
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
