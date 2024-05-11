@@ -1,12 +1,11 @@
 ﻿using EbApp.Models;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 
 namespace EbApp
@@ -15,6 +14,7 @@ namespace EbApp
     public partial class Registration : ContentPage
     {
         private string verificationCode;
+        private string email;
 
         public Registration()
         {
@@ -26,48 +26,23 @@ namespace EbApp
             return System.Text.RegularExpressions.Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         }
 
-        private void SaveClientButton_Clicked(object sender, EventArgs e)
-        {
-            string firstName = FirstNameEntry.Text;
-            string lastName = LastNameEntry.Text;
-            string email = EmailEntry.Text;
-
-            // Создание нового клиента или обновление существующего
-            Client client = new Client
-            {
-                Surname = lastName,
-                Lastname = firstName,
-                Email = email
-            };
-
-            // Сохранение клиента в базе данных
-            App.Database.AddClient(client);
-
-            // Отображение информации о клиенте
-            BindingContext = client;
-        }
-
-
         private async void SendEmailButton_Clicked(object sender, EventArgs e)
         {
-
-            string email = EmailEntry.Text.Trim();
+            email = EmailEntry.Text.Trim();
             if (!string.IsNullOrWhiteSpace(email) && IsEmailValid(email))
             {
                 try
                 {
                     Random random = new Random();
-                    verificationCode =  random.Next(100000, 999999).ToString();
+                    verificationCode = random.Next(100000, 999999).ToString();
 
                     MailAddress from = new MailAddress("akmilia@yandex.ru", "Kamila Gayalieva");
-                    //MailAddress from = new MailAddress("sofapetrova2@mail.ru", "Kamila Gayalieva");
                     MailAddress to = new MailAddress(email);
                     MailMessage m = new MailMessage(from, to);
                     m.Body = verificationCode;
-                    m.Subject = "Код подтверждения"; 
+                    m.Subject = "Код подтверждения";
                     m.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 587);
-                    //smtp.Credentials = new NetworkCredential("sofapetrova2@mail.ru", "tuq6cwwAzBrkL3m6sApd");
                     smtp.Credentials = new NetworkCredential("akmilia@yandex.ru", "pykcchsqhgafxpuv");
                     smtp.EnableSsl = true;
 
@@ -77,7 +52,7 @@ namespace EbApp
                 }
                 catch (Exception ex)
                 {
-                    DisplayAlert("Ошибка", "Упс, что-то пошло не так, попробуйте заново", "OK"+ ex.Message);
+                    DisplayAlert("Ошибка", "Упс, что-то пошло не так, попробуйте заново", "OK" + ex.Message);
                 }
             }
             else
@@ -85,15 +60,29 @@ namespace EbApp
                 DisplayAlert("Неправильный email", "Произошла ошибка", "OK");
             }
         }
-        private async void VerifyCodeButton_Clicked(object sender, EventArgs e)
+
+
+        private async void ButtonNext_Clicked(object sender, EventArgs e)
         {
-            string enteredCode = CodeEntry.Text; 
+            string enteredCode = CodeEntry.Text;
 
             if (enteredCode == verificationCode)
             {
-                AdditionalInfoLayout.IsVisible = true;
-                DisplayAlert("Успешно", "Введенный код верный. ", "OK");
-                
+                Client client = App.Database.GetClientByEmail(email);
+                if (client == null)
+                {
+                    Client client1 = new Client
+                    {
+                        Email = email,
+                        Surname = "",
+                        Patronymic = "",
+                        Lastname = ""
+                    };
+                    client = client1;
+                    App.database.AddClient(client);
+                }
+                Application.Current.Properties["currentUser"] = JsonConvert.SerializeObject(client);
+                await Navigation.PopAsync();
             }
             else
             {
@@ -102,14 +91,6 @@ namespace EbApp
             }
         }
 
-        private async void ButtonNext_Clicked(object sender, EventArgs e)
-        {
-            //await Navigation.
-            //MainPage = new AppShell();
-            //NavigationPage(new Registration()
-
-        }
     }
-
-    }
+}
 

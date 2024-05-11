@@ -1,14 +1,13 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SQLite;
 using System.Linq;
 
 namespace EbApp.Models
 {
     public class Reposit
     {
+        public Client currentClient; 
         public SQLiteConnection database;
         public Reposit(string databasePath)
         {
@@ -19,7 +18,6 @@ namespace EbApp.Models
             database.CreateTable<ScheduleClient>();
             AddDefaultTrainers();
         }
-
 
         // Клиенты
         public void AddClient(Client newClient)
@@ -40,7 +38,6 @@ namespace EbApp.Models
             return database.Table<Client>().FirstOrDefault(c => c.IdClient == clientId);
         }
 
-
         //Метод для получения списка занятий, на которые записан клиент
         public List<Appointment> GetAppointmentsForClient(int clientId)
         {
@@ -57,9 +54,9 @@ namespace EbApp.Models
         }
 
 
+
+
         //Тренеры
-
-
         private void AddDefaultTrainers()
         {
             var trainer1 = new Trainer
@@ -85,12 +82,6 @@ namespace EbApp.Models
             AddTrainer(trainer1);
             AddTrainer(trainer2);
         }
-
-        //private byte[] GetPhotoBytes(string filename)
-        //{
-        //    return File.ReadAllBytes(filename);
-        //}
-
         public IEnumerable<Trainer> GetTrainers()
         {
             return database.Table<Trainer>().ToList();
@@ -160,6 +151,8 @@ namespace EbApp.Models
 
 
 
+
+
         //Расписание
         public IEnumerable<Appointment> GetAppointments()
         {
@@ -185,8 +178,11 @@ namespace EbApp.Models
 
 
 
-        //Записи 
 
+
+
+
+        //Записи 
         public IEnumerable<ScheduleClient> GetScheduleEntriesForClass(int idClass)
         {
             return database.Table<ScheduleClient>().Where(s => s.IdClass == idClass).ToList();
@@ -238,19 +234,5 @@ namespace EbApp.Models
                 return database.Insert(ScheduleClient);
             }
         }
-
-
-        //public int LSaveItem(List item)
-        //{
-        //    if (item.IDList != 0)
-        //    {
-        //        database.Update(item);
-        //        return item.IDList;
-        //    }
-        //    else
-        //    {
-        //        return database.Insert(item);
-        //    }
-        //}
     }
 }
